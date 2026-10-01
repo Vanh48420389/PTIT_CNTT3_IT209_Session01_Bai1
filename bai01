@@ -1,0 +1,24 @@
+Bài 1: Khởi tạo Droplet & Cấu hình SSH Keypair
+
+## 1. Mục tiêu
+- Cấu hình xác thực an toàn bằng cặp khóa SSH (SSH Keypair) thay cho mật khẩu.
+- Kết nối thành công tới máy chủ Ubuntu từ terminal máy cá nhân.
+
+## 2. Các bước thực hiện
+
+### Bước 1: Tạo SSH Keypair trên máy cá nhân
+Chạy lệnh tạo khóa ed25519:
+```bash
+ssh-keygen -t ed25519 -C "my-key"
+Khóa riêng tư (private key) và khóa công khai (public key) được lưu mặc định tại thư mục ~/.ssh/.
+
+Bước 2: Đẩy Public Key lên máy chủ
+Sử dụng ssh-copy-id để đưa khóa công khai vào danh sách authorized_keys của server:
+
+Bash
+ssh-copy-id -i ~/.ssh/id_ed25519.pub root@160.30.157.208
+Bước 3: Kết nối SSH bằng Private Key
+Thực hiện kết nối tới máy chủ mà không cần mật khẩu:
+
+Bash
+ssh -i ~/.ssh/id_ed25519 root@160.30.157.208
